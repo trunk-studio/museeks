@@ -77,6 +77,7 @@ app.on('ready', () => {
         minHeight :  550,
         frame     :  useNativeFrame,
         show      :  false,
+        titleBarStyle : 'hidden',
     };
 
     // Create the browser window

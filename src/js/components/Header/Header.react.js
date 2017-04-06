@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Input from 'react-simple-input';
 import KeyBinding from 'react-keybinding-component';
 
+import os from 'os';
+import classnames from 'classnames';
+
 import PlayingBar     from './PlayingBar.react';
 import WindowControls from './WindowControls.react';
 import PlayerControls from './PlayerControls.react';
@@ -33,8 +36,13 @@ export default class Header extends Component {
     }
 
     render() {
+        const headerClasses = classnames('header', {
+            'os-darwin': os.platform() === 'darwin',
+        });
+
+
         return (
-            <header>
+            <header className={ headerClasses }>
                 { this.getTopHeader() }
                 <div className='main-header'>
                     <div className='col-main-controls'>
@@ -70,9 +78,11 @@ export default class Header extends Component {
     getTopHeader() {
         if(this.props.useNativeFrame) return null;
 
+        const controls = os.platform() === 'darwin' ? null : <WindowControls />;
+
         return (
             <div className='top-header'>
-                <WindowControls />
+                { controls }
             </div>
         );
     }

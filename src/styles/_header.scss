@@ -38,6 +38,13 @@ header {
     background-color: rgb(244, 244, 244);
     color: $_header-color;
 
+    &.os-darwin {
+
+        .top-header {
+            height: #{$top-header-height-darwin}px;
+        }
+    }
+
     .top-header {
         display: flex;
         justify-content: flex-end;
