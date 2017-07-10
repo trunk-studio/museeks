@@ -70,6 +70,7 @@ class Player {
         // When we change song, need to update the thresholdReached indicator.
         this.durationThresholdReached = false;
         this.audio.src = src;
+        // this.audio.src = 'http://www.sample-videos.com/audio/mp3/india-national-anthem.mp3';
     }
 
     setAudioCurrentTime(currentTime) {

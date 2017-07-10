@@ -32,22 +32,37 @@ const init = () => {
     });
 
     Player.getAudio().addEventListener('play', async () => {
-        ipcRenderer.send('playerAction', 'play');
+        try {
+            ipcRenderer.send('playerAction', 'play');
+            console.log("play!!!!!!!!!");
+            let path = '';
+            let cover = '';
+            const isStream = Player.getSrc().indexOf('http') === 0;
+            if (isStream) {
+                path = Player.getSrc();
+            } else {
+                path = decodeURIComponent(Player.getSrc()).replace('file://', '');
+            }
+            console.log("before track!!!!!!!!!!", path);
+            const track = await utils.getMetadata(path);
+            if (!isStream) {
+                cover = await utils.fetchCover(track.path);
+            }
+            console.log("finish!!!!!!!!!", track, isStream, cover);
 
-        const path = decodeURIComponent(Player.getSrc()).replace('file://', '');
+            ipcRenderer.send('playerAction', 'trackStart', track);
 
-        const track = await utils.getMetadata(path);
+            if(app.browserWindows.main.isFocused()) return;
 
-        ipcRenderer.send('playerAction', 'trackStart', track);
-
-        if(app.browserWindows.main.isFocused()) return;
-
-        const cover = await utils.fetchCover(track.path);
-        NotificationActions.add({
-            title: track.title,
-            body: `${track.artist}\n${track.album}`,
-            icon: cover,
-        });
+            NotificationActions.add({
+                title: track.title,
+                body: `${track.artist}\n${track.album}`,
+                icon: cover,
+            });
+            
+        } catch (error) {
+            console.log("!!!!!!!!!!", error);
+        }
     });
 
     Player.getAudio().addEventListener('pause', () => {
