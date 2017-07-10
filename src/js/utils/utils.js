@@ -55,14 +55,18 @@ const getStatus = (tracks) => {
  * @return string
  */
 const parseUri = (uri) => {
-    const root = process.platform === 'win32' ? '' : path.parse(uri).root;
-    const location = uri
-        .split(path.sep)
-        .map((d, i) => {
-            return i === 0 ? d : encodeURIComponent(d);
-        })
-        .reduce((a, b) => path.join(a, b));
-    return `file://${root}${location}`;
+    if (uri.indexOf('http') === 0) {
+        return uri;
+    } else {
+        const root = process.platform === 'win32' ? '' : path.parse(uri).root;
+        const location = uri
+            .split(path.sep)
+            .map((d, i) => {
+                return i === 0 ? d : encodeURIComponent(d);
+            })
+            .reduce((a, b) => path.join(a, b));
+        return `file://${root}${location}`;
+    }
 };
 
 /**
