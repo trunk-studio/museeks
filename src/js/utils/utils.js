@@ -55,14 +55,18 @@ const getStatus = (tracks) => {
  * @return string
  */
 const parseUri = (uri) => {
-    const root = process.platform === 'win32' ? '' : path.parse(uri).root;
-    const location = uri
-        .split(path.sep)
-        .map((d, i) => {
-            return i === 0 ? d : encodeURIComponent(d);
-        })
-        .reduce((a, b) => path.join(a, b));
-    return `file://${root}${location}`;
+    if (uri.indexOf('http') === 0) {
+        return uri;
+    } else {
+        const root = process.platform === 'win32' ? '' : path.parse(uri).root;
+        const location = uri
+            .split(path.sep)
+            .map((d, i) => {
+                return i === 0 ? d : encodeURIComponent(d);
+            })
+            .reduce((a, b) => path.join(a, b));
+        return `file://${root}${location}`;
+    }
 };
 
 /**
@@ -259,6 +263,41 @@ const getMusicMetadata = async (track) => {
     }
     return metadata;
 };
+const getStreamMetadata = async (track) => {
+    const defaultMetadata = getDefaultMetadata();
+
+    let data;
+    // try {
+    //     const stream = fs.createReadStream(track);
+    //     data = await musicmetadataAsync(stream, { duration: true });
+    //     delete data.picture;
+    //     stream.close();
+    // } catch (err) {
+    //     data = defaultMetadata;
+    //     console.warn(`An error occured while reading ${track} id3 tags: ${err}`);
+    // }
+
+    const metadata = {
+        ...defaultMetadata,
+        ...data,
+        // album        : data.album === null || data.album === '' ? 'Unknown' : data.album,
+        // artist       : data.artist.length === 0 ? ['Unknown artist'] : data.artist,
+        // duration     : data.duration === '' ? 0 : data.duration,
+        path         : track,
+        title        : 'Stream 測試',
+    };
+
+    metadata.loweredMetas = getLoweredMeta(metadata);
+
+    if (metadata.duration === 0) {
+        try {
+            metadata.duration = await getAudioDurationAsync(track);
+        } catch (err) {
+            console.warn(`An error occured while getting ${track} duration: ${err}`);
+        }
+    }
+    return metadata;
+};
 
 /**
  * Get a file metadata
@@ -269,8 +308,16 @@ const getMusicMetadata = async (track) => {
  */
 const getMetadata = async (track) => {
     // metadata should have the same shape as getDefaultMetadata() object
-    const wavFile = path.extname(track).toLowerCase() === '.wav';
-    const metadata = wavFile ? await getWavMetadata(track) : await getMusicMetadata(track);
+    let metadata = null;
+    const isHttp = track.indexOf('http') === 0;
+    if (isHttp) {
+        console.log("isHttp", track);
+        metadata = await getStreamMetadata(track);
+        console.log("isHttp metadata",metadata);
+    } else {
+        const wavFile = path.extname(track).toLowerCase() === '.wav';
+        metadata = wavFile ? await getWavMetadata(track) : await getMusicMetadata(track);
+    }
     return metadata;
 };
 

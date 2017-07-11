@@ -82,21 +82,34 @@ scanQueue.on('success', () => {
 });
 
 const add = (pathsToScan) => {
+    console.log("!!!!!!!!!!!!!!!!!!", pathsToScan);
     store.dispatch({
         type : AppConstants.APP_LIBRARY_REFRESH_START,
     });
 
     let rootFiles; // HACK Kind of hack, looking for a better solution
-
+    // const streamMusic = [];
     // Scan folders and add files to library
     new Promise((resolve) => {
         const paths = Promise.map(pathsToScan, (path) => {
-            return statAsync(path).then((stat) => {
+            if (path.indexOf('http') !== 0) {
+                return statAsync(path).then((stat) => {
+                    return {
+                        path,
+                        stat,
+                    };
+                });
+            } else {
                 return {
                     path,
-                    stat,
+                    stat: {
+                        isStream: () => true,
+                        isFile: () => false,
+                        isDirectory: () => false,
+                        isSymbolicLink: () => false,
+                    },
                 };
-            });
+            }
         });
 
         resolve(paths);
@@ -105,6 +118,7 @@ const add = (pathsToScan) => {
         const folders = [];
 
         paths.forEach((elem) => {
+            if(elem.stat.isStream()) files.push(elem.path);
             if(elem.stat.isFile()) files.push(elem.path);
             if(elem.stat.isDirectory() || elem.stat.isSymbolicLink()) folders.push(elem.path);
         });
@@ -124,7 +138,7 @@ const add = (pathsToScan) => {
                 return app.supportedExtensions.includes(extension);
             }
         );
-
+        
         return flatFiles;
     }).then((supportedFiles) => {
         if (supportedFiles.length === 0) {
@@ -136,6 +150,7 @@ const add = (pathsToScan) => {
 
         supportedFiles.forEach((filePath) => {
             scanQueue.push((callback) => {
+                console.log("!!!!!!!!!!", filePath);
                 return app.models.Track.findAsync({ path: filePath }).then((docs) => {
                     if (docs.length === 0) {
                         return utils.getMetadata(filePath);
@@ -145,6 +160,7 @@ const add = (pathsToScan) => {
                     // If null, that means a track with the same absolute path already exists in the database
                     if(track === null) return;
                     // else, insert the new document in the database
+                    console.log("!!!!!!!!!!!!!!!", track);
                     return app.models.Track.insertAsync(track);
                 }).then(() => {
                     scan.processed++;

@@ -46,6 +46,14 @@ export default class SettingsLibrary extends Component {
                         >
                             Reset library
                         </Button>
+                        <Button
+                            bsSize='small'
+                            bsStyle={ 'success' }
+                            title='新增串流音樂'
+                            onClick={ this.addStreamMusic }
+                        >
+                            新增串流音樂
+                        </Button>
                     </ButtonGroup>
                 </div>
             </div>
@@ -55,6 +63,12 @@ export default class SettingsLibrary extends Component {
     resetLibrary() {
         AppActions.player.stop();
         AppActions.library.reset();
+    }
+
+    addStreamMusic() {
+        AppActions.library.add([
+            'http://www.sample-videos.com/audio/mp3/india-national-anthem.mp3',
+        ]);
     }
 
     onDrop(e) {

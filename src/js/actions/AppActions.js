@@ -33,16 +33,17 @@ const init = () => {
 
     Player.getAudio().addEventListener('play', async () => {
         ipcRenderer.send('playerAction', 'play');
-
         const path = decodeURIComponent(Player.getSrc()).replace('file://', '');
-
+        let cover = '';
+        const isStream = Player.getSrc().indexOf('http') === 0;
         const track = await utils.getMetadata(path);
-
+        if (!isStream) {
+            cover = await utils.fetchCover(track.path);
+        }
         ipcRenderer.send('playerAction', 'trackStart', track);
 
         if(app.browserWindows.main.isFocused()) return;
 
-        const cover = await utils.fetchCover(track.path);
         NotificationActions.add({
             title: track.title,
             body: `${track.artist}\n${track.album}`,
