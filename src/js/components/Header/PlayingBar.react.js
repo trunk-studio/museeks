@@ -56,7 +56,10 @@ export default class PlayingBar extends Component {
         const queue = this.props.queue;
         const queueCursor = this.props.queueCursor;
         const trackPlaying = queue[queueCursor];
-
+        const buttonClasses = classnames('button repeat',{
+            active: this.props.repeat === 'one' || this.props.repeat === 'all',
+        });
+//console.log(trackPlaying)
         let elapsedPercent;
 
         if(queueCursor === null) return null;
@@ -80,20 +83,20 @@ export default class PlayingBar extends Component {
                     <div className='now-playing-metas'>
                         <div className='player-options'>
                             <ButtonRepeat repeat={ this.props.repeat } />
+                            <button className={ buttonClasses }></button>
                             <ButtonShuffle queue={ this.props.queue } shuffle={ this.props.shuffle } />
                         </div>
                         <div className='metas'>
                             <strong className='meta-title'>
                                 { trackPlaying.title }
-                            </strong>
-                            &nbsp;by&nbsp;
+                            </strong><br/>
                             <strong className='meta-artist'>
                                 { trackPlaying.artist.join(', ') }
                             </strong>
                             &nbsp;on&nbsp;
-                            <strong className='meta-album'>
-                                { trackPlaying.album }
-                            </strong>
+                            {/*<strong className='meta-album'>
+                                { trackPlaying.album } 
+                            </strong>*/} 
                         </div>
 
                         <span className='duration'>

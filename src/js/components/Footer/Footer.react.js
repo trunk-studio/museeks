@@ -58,6 +58,11 @@ export default class Footer extends Component {
                         <Icon name='gear' fixedWidth />
                     </Button>
                 </LinkContainer>
+                <LinkContainer to='/musicplayer'>
+                    <Button className='view-link' title='MusicPlayer'>
+                        <Icon name='music' fixedWidth />
+                    </Button>
+                </LinkContainer>
             </ButtonGroup>
         );
 
