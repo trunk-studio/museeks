@@ -22,7 +22,7 @@ export default class PlayerControls extends PureComponent {
 
     render() {
         return (
-            <div className='player-controls'>
+            <div className='player-controls'  style={{color:'white',marginLeft:'46.5%'}}>
                 <button type='button' className='player-control previous' title='Previous' onClick={ AppActions.player.previous }>
                     <Icon name='backward' />
                 </button>
@@ -32,7 +32,7 @@ export default class PlayerControls extends PureComponent {
                 <button type='button' className='player-control forward' title='Next' onClick={ AppActions.player.next }>
                     <Icon name='forward' />
                 </button>
-                <VolumeControl />
+                {/*<VolumeControl />*/}
             </div>
         );
     }

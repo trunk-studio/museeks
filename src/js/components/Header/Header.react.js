@@ -7,8 +7,7 @@ import WindowControls from './WindowControls.react';
 import PlayerControls from './PlayerControls.react';
 
 import AppActions from '../../actions/AppActions';
-
-
+import VolumeControl from './VolumeControl.react';
 /*
 |--------------------------------------------------------------------------
 | Header
@@ -44,16 +43,18 @@ console.log( JSON.stringify(this.props.queueCursor, null, 2))
                         <PlayerControls
                             playerStatus={ this.props.playerStatus }
                         />
+                        <VolumeControl />
                     </div>
-                    <div className='col-player-infos'>
+                    <div className='col-player-infos' style={{marginRight:'-3%'}}>
                         <PlayingBar
                             queue={ this.props.queue }
                             queueCursor={ this.props.queueCursor }
                             shuffle={ this.props.shuffle }
                             repeat={ this.props.repeat }
                         />
+                       
                     </div>
-                    <div className="col-search-controls">
+                    {/*<div className="col-search-controls">
                         <Input
                             selectOnClick
                             placeholder='search'
@@ -63,7 +64,7 @@ console.log( JSON.stringify(this.props.queueCursor, null, 2))
                             ref='search'
                             onChange={ this.search }
                         />
-                    </div>
+                    </div>*/}
                 </div>
                 <KeyBinding onKey={ this.onKey } preventInputConflict />
             </header>
