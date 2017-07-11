@@ -44,8 +44,9 @@ console.log( JSON.stringify(this.props.queueCursor, null, 2))
                         <div className='col-main-controls'>
                             <PlayerControls
                                 playerStatus={ this.props.playerStatus }
+                                showVolume={this.props.showControl}
                             />
-                            <VolumeControl />
+                            {/*<VolumeControl />*/}
                         </div>
                         <div className='col-player-infos' style={{marginRight:'-3%'}}>
                             <PlayingBar

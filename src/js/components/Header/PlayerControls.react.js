@@ -32,7 +32,9 @@ export default class PlayerControls extends PureComponent {
                 <button type='button' className='player-control forward' title='Next' onClick={ AppActions.player.next }>
                     <Icon name='forward' />
                 </button>
-                {/*<VolumeControl />*/}
+                {
+                    this.props.showVolume ? <VolumeControl /> : null
+                }
             </div>
         );
     }
