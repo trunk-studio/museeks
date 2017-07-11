@@ -63,6 +63,12 @@ header {
         width: 200px;
         display: flex;
         align-items: center;
+        
+        button{
+            z-index:10;
+            background-color:#33393B;
+            border:none;
+        }
     }
 
     /* .windows-controls */

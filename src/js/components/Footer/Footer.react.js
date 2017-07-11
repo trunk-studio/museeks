@@ -43,26 +43,27 @@ export default class Footer extends Component {
 
         const navButtons = (
             <ButtonGroup className='view-switcher'>
+                 <LinkContainer to='/musicplayer'>
+                    <Button className='view-link' title='MusicPlayer'>
+                        <Icon name='music' fixedWidth />
+                    </Button>
+                </LinkContainer>
                 <LinkContainer to='/library'>
                     <Button className='view-link' title='Library'>
                         <Icon name='align-justify' fixedWidth />
                     </Button>
                 </LinkContainer>
-                <LinkContainer to='/playlists'>
+                {/*<LinkContainer to='/playlists'>
                     <Button className='view-link' title='Playlists'>
                         <Icon name='star' fixedWidth />
                     </Button>
-                </LinkContainer>
+                </LinkContainer>*/}
                 <LinkContainer to='/settings'>
                     <Button className='view-link' title='Settings'>
                         <Icon name='gear' fixedWidth />
                     </Button>
                 </LinkContainer>
-                <LinkContainer to='/musicplayer'>
-                    <Button className='view-link' title='MusicPlayer'>
-                        <Icon name='music' fixedWidth />
-                    </Button>
-                </LinkContainer>
+               
             </ButtonGroup>
         );
 

@@ -56,9 +56,7 @@ export default class PlayingBar extends Component {
         const queue = this.props.queue;
         const queueCursor = this.props.queueCursor;
         const trackPlaying = queue[queueCursor];
-        const buttonClasses = classnames('button repeat',{
-            active: this.props.repeat === 'one' || this.props.repeat === 'all',
-        });
+
 //console.log(trackPlaying)
         let elapsedPercent;
 
@@ -76,46 +74,47 @@ export default class PlayingBar extends Component {
 
         return (
             <div className={ nowPlayingTextClasses } >
-                <div className='now-playing-cover'>
+                <div className='now-playing-cover' style={{paddingLeft:'70px'}}>
                     <Cover path={ trackPlaying.path } />
                 </div>
                 <div className='now-playing-infos'>
                     <div className='now-playing-metas'>
-                        <div className='player-options'>
+                        {/*<div className='player-options'>
                             <ButtonRepeat repeat={ this.props.repeat } />
-                            <button className={ buttonClasses }></button>
+                           
                             <ButtonShuffle queue={ this.props.queue } shuffle={ this.props.shuffle } />
-                        </div>
-                        <div className='metas'>
+                        </div>*/}
+                        {/*<div className='metas'  style={{color:'white'}}>
                             <strong className='meta-title'>
                                 { trackPlaying.title }
                             </strong><br/>
-                            <strong className='meta-artist'>
+                            <strong className='meta-artist' >
                                 { trackPlaying.artist.join(', ') }
                             </strong>
                             &nbsp;on&nbsp;
-                            {/*<strong className='meta-album'>
+                            {<strong className='meta-album'>
                                 { trackPlaying.album } 
-                            </strong>*/} 
-                        </div>
+                            </strong>} 
+                        </div>*/}
 
-                        <span className='duration'>
+                        <span className='duration'  style={{color:'white'}}>
                             { utils.parseDuration(this.state.elapsed) } / { utils.parseDuration(trackPlaying.duration) }
                         </span>
                     </div>
-                    <div className='now-playing-bar' ref='playingBar'>
+                    <div className='now-playing-bar' ref='playingBar' style={{justifyContent: 'center',width:'90%',marginTop:'3%'}}>
                         <div className={ nowPlayingTooltipClasses } style={ { left: `${this.state.x}%` } }>
                             { utils.parseDuration(this.state.duration) }
                         </div>
                         <ProgressBar
                             now={ elapsedPercent }
                             onMouseDown={ this.jumpAudioTo }
-                            onMouseMove={ this.showTooltip }
-                            onMouseLeave={ this.hideTooltip }
+                            onMouseMove={ false }
+                            onMouseLeave={ false }
+                            style={{marginLeft:'10%',justifyContent: 'center',height:'5px'}}
                         />
                     </div>
                 </div>
-                <div className='now-playing-queue'>
+                {/*<div className='now-playing-queue'>
                     <Dropdown id='queue-dropdown' className='queue-dropdown'>
                         <Dropdown.Toggle noCaret className='queue-toggle'>
                             <Icon name='list' />
@@ -127,7 +126,7 @@ export default class PlayingBar extends Component {
                             />
                         </Dropdown.Menu>
                     </Dropdown>
-                </div>
+                </div>*/}
             </div>
         );
     }
