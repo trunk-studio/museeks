@@ -118,7 +118,7 @@ const add = (pathsToScan) => {
         const folders = [];
 
         paths.forEach((elem) => {
-            if(elem.stat.isStream()) files.push(elem.path);
+            if(elem.stat.isStream && elem.stat.isStream()) files.push(elem.path);
             if(elem.stat.isFile()) files.push(elem.path);
             if(elem.stat.isDirectory() || elem.stat.isSymbolicLink()) folders.push(elem.path);
         });
