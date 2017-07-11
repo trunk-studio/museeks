@@ -8,6 +8,7 @@ import AppActions from '../actions/AppActions';
 // Components
 import App       from '../components/App.react';
 import Library   from '../components/Library/Library.react';
+import MusicPlayer   from '../components/MusicPlayer/MusicPlayer.react';
 import Playlists from '../components/Playlists/Playlists.react';
 import Playlist  from '../components/Playlists/Playlist.react';
 import Settings  from '../components/Settings/Settings.react';
@@ -33,12 +34,16 @@ const init = {
         AppActions.playlists.load(route.params.playlistId);
         AppActions.library.setTracksCursor('playlist');
     },
+    musicplayer:()=>{
+        AppActions.init();
+    }
 };
 
 // Router
 const routes = (
     <Route component={ App } path='/' onEnter={ init.app }>
         <Route path='library' component={ Library } onEnter={ init.library } />
+        <Route path='musicplayer' component={ MusicPlayer } onEnter={ init.musicplayer } />
         <Route path='settings' component={ Settings }>
             <IndexRedirect to="library" />
             <Route path='about' component={ SettingsAbout } />

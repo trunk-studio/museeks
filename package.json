@@ -66,8 +66,8 @@
       "executableName": "museeks"
     },
     "win": {
-        "target": "nsis",
-        "icon": "src/images/logos/museeks.ico"
+      "target": "nsis",
+      "icon": "src/images/logos/museeks.ico"
     }
   },
   "dependencies": {

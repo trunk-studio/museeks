@@ -46,7 +46,7 @@ class Museeks extends Component {
         return (
             <div className={ mainClasses }>
                 <KeyBinding onKey={ this.onKey } preventInputConflict />
-                <Header
+               <Header
                     app={ this }
                     playerStatus={ store.playerStatus }
                     repeat={ store.repeat }

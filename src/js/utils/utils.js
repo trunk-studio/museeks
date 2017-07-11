@@ -328,4 +328,5 @@ export default {
     chunkArray,
     getMetadata,
     fetchCover,
+    getDefaultMetadata,
 };
