@@ -53,11 +53,11 @@ export default class TracksList extends Component {
                 <KeyBinding onKey={ this.onKey } target={ '.tracks-list-container' } preventInputConflict preventDefault />
                 <div className='tracks-list-header'>
                     <div className='track-cell-header cell-track-playing' />
-                    <div className='track-cell-header cell-track'>Track</div>
-                    <div className='track-cell-header cell-duration'>Duration</div>
-                    <div className='track-cell-header cell-artist'>Artist</div>
-                    <div className='track-cell-header cell-album'>Album</div>
-                    <div className='track-cell-header cell-genre'>Genre</div>
+                    <div className='track-cell-header cell-track'>名稱</div>
+                    <div className='track-cell-header cell-duration'>長度</div>
+                    <div className='track-cell-header cell-artist'>作者</div>
+                    <div className='track-cell-header cell-album'>專輯</div>
+                    {/*<div className='track-cell-header cell-genre'>Genre</div>*/}
                 </div>
                 <div className='tracks-list-body' onScroll={ this.scrollTracksList }>
                     <div className='tracks-list-tiles' style={ { height : tracks.length * this.rowHeight } }>
