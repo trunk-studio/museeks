@@ -59,7 +59,7 @@ export default class VolumeControl extends Component {
                 onMouseEnter={ this.showVolume }
                 onMouseLeave={ this.showVolume }
                 onClick={ this.mute } 
-                style={{marginLeft:'200px',position:'absolute',marginTop:'',}}
+                style={{marginLeft:'70%',position:'absolute',marginTop:'-30px',background:'#282C34',border:'none'}}
             >
                 <Icon name={ this.getVolumeIcon(unsmoothifyVolume(this.state.volume), this.state.muted) } />
                 <div className={ volumeClasses }>

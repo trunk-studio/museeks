@@ -28,17 +28,17 @@ export default class SettingsAbout extends Component {
         return (
             <div className='setting setting-about'>
                 <div className='setting-section'>
-                    <h4>About Museeks</h4>
+                    <h4>About 創科資訊</h4>
                     <img src={ museeksLogo } className='logo-museeks' alt='Logo' title='Museeks logo' />
                     <p>
-                        Museeks { app.version }{ ' - ' }
+                        {/*Museeks { app.version }{ ' - ' }
                         <ExternalLink href='http://museeks.io'>museeks.io</ExternalLink>
                         { ' - ' }
-                        <ExternalLink href={ `https://github.com/KeitIG/Museeks/releases/tag/${app.version}` }>release notes</ExternalLink>
-                        <Button bsSize='small' className='update-checker' onClick={ AppActions.settings.checkForUpdate }>Check for update</Button>
+                        <ExternalLink href={ `https://github.com/KeitIG/Museeks/releases/tag/${app.version}` }>release notes</ExternalLink>*/}
+                        {/*<Button bsSize='small' className='update-checker' onClick={ AppActions.settings.checkForUpdate }>Check for update</Button>*/}
                     </p>
                 </div>
-                <div className='setting-section'>
+                {/*<div className='setting-section'>
                     <h4>Contributors</h4>
                     <div className='contributors-list'>
                         <p>
@@ -60,7 +60,7 @@ export default class SettingsAbout extends Component {
                             see, using our <ExternalLink href='http://github.com/KeitIG/Museeks/issues'>issue tracker</ExternalLink>.
                         </p>
                     </div>
-                </div>
+                </div>*/}
             </div>
         );
     }
