@@ -31,15 +31,15 @@ export default class Settings extends Component {
                         <LinkContainer to='/settings/library'>
                             <NavItem eventKey={ 1 }>Library</NavItem>
                         </LinkContainer>
-                        <LinkContainer to='/settings/audio'>
+                        {/*<LinkContainer to='/settings/audio'>
                             <NavItem eventKey={ 2 }>Audio</NavItem>
-                        </LinkContainer>
-                        <LinkContainer to='/settings/interface'>
+                        </LinkContainer>*/}
+                        {/*<LinkContainer to='/settings/interface'>
                             <NavItem eventKey={ 3 }>Interface</NavItem>
-                        </LinkContainer>
-                        <LinkContainer to='/settings/advanced'>
+                        </LinkContainer>*/}
+                        {/*<LinkContainer to='/settings/advanced'>
                             <NavItem eventKey={ 4 }>Advanced</NavItem>
-                        </LinkContainer>
+                        </LinkContainer>*/}
                         <LinkContainer to='/settings/about'>
                             <NavItem eventKey={ 5 }>About</NavItem>
                         </LinkContainer>

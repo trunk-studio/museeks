@@ -31,7 +31,7 @@ export default class SettingsLibrary extends Component {
                 <div className='setting-section'>
                     <h4>Manage library</h4>
                     <Dropzone
-                        title='Add music to library'
+                        title='新增音樂'
                         subtitle='Drop files or folders here'
                         onDrop={ this.onDrop }
                         onClick={ this.openFolderSelector }
@@ -44,7 +44,7 @@ export default class SettingsLibrary extends Component {
                             disabled={ this.props.library.refreshing }
                             onClick={ this.resetLibrary }
                         >
-                            Reset library
+                            清空音樂庫
                         </Button>
                         <Button
                             bsSize='small'

@@ -48,8 +48,8 @@ class MusicPlayer extends Component {
 
     
   async componentWillMount() {
+    console.log('wwwww', this.props);
       const { queue, trackPlayingId } = this.props;
-      console.log("!componentWillMount!!!!!!!!!!!", queue, trackPlayingId);
       if (queue.length > 0) {
         let target = null;
         if (trackPlayingId) {

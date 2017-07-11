@@ -35,7 +35,7 @@ const init = {
         AppActions.library.setTracksCursor('playlist');
     },
     musicplayer:()=>{
-        //AppActions.init();
+        // AppActions.init();
         AppActions.library.setTracksCursor('library');
     }
 };
@@ -43,10 +43,10 @@ const init = {
 // Router
 const routes = (
     <Route component={ App } path='/' onEnter={ init.app }>
-        <Route path='library' component={ Library } onEnter={ init.library } />
         <Route path='musicplayer' component={ MusicPlayer } onEnter={ init.musicplayer } />
+        <Route path='library' component={ Library } onEnter={ init.library } />
         <Route path='settings' component={ Settings }>
-            <IndexRedirect to="musicplayer" />
+            <IndexRedirect to="library" />
             <Route path='about' component={ SettingsAbout } />
             <Route path='advanced' component={ SettingsAdvanced } />
             <Route path='audio' component={ SettingsAudio } />

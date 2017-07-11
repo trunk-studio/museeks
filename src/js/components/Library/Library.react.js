@@ -3,6 +3,10 @@ import { Link } from 'react-router';
 
 import FullViewMessage from '../Shared/FullViewMessage.react';
 import TracksList from '../Shared/TracksList.react';
+import Dropzone from '../Shared/Dropzone.react';
+import AppActions from '../../actions/AppActions';
+const dialog = electron.remote.dialog;
+
 
 
 /*
@@ -80,10 +84,37 @@ export default class Library extends Component {
         );
     }
 
+    onDrop(e) {
+        const files = [];
+        const eventFiles = e.dataTransfer.files;
+
+        for(let i = 0; i < eventFiles.length; i++) {
+            files.push(eventFiles[i].path);
+        }
+
+        AppActions.library.add(files);
+    }
+
+    openFolderSelector() {
+        dialog.showOpenDialog({
+            properties: ['multiSelections', 'openDirectory'],
+        }, (result) => {
+            if(result) {
+                AppActions.library.add(result);
+            }
+        });
+    }
+
     render() {
         return (
             <div className='view view-library' >
                 { this.getLibraryComponent() }
+                <Dropzone
+                    title='新增音樂'
+                    subtitle='Drop files or folders here'
+                    onDrop={ this.onDrop }
+                    onClick={ this.openFolderSelector }
+                />
             </div>
         );
     }

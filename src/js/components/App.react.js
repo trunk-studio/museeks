@@ -42,7 +42,7 @@ class Museeks extends Component {
         const mainClasses = classnames('main', {
             'native-frame': config.useNativeFrame,
         });
-
+        console.log("!!!!!!!!!!!", store);
         return (
             <div className={ mainClasses }>
                 <KeyBinding onKey={ this.onKey } preventInputConflict />

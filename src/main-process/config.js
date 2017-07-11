@@ -31,7 +31,7 @@ class ConfigManager {
 
     getDefaultConfig() {
         return {
-            theme: 'light',
+            theme: 'dark',
             audioVolume: 1,
             audioPlaybackRate: 1,
             audioMuted: false,
@@ -39,10 +39,10 @@ class ConfigManager {
             audioRepeat: 'none',
             musicFolders: [],
             sleepBlocker: false,
-            autoUpdateChecker: true,
+            autoUpdateChecker: false,
             useNativeFrame: false,
             minimizeToTray: true,
-            displayNotifications: true,
+            displayNotifications: false,
             devMode: false,
             bounds: {
                 width: 1000,
