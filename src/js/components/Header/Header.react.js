@@ -38,34 +38,37 @@ console.log( JSON.stringify(this.props.queueCursor, null, 2))
         return (
             <header>
                 { this.getTopHeader() }
-                <div className='main-header'>
-                    <div className='col-main-controls'>
-                        <PlayerControls
-                            playerStatus={ this.props.playerStatus }
-                        />
-                        <VolumeControl />
-                    </div>
-                    <div className='col-player-infos' style={{marginRight:'-3%'}}>
-                        <PlayingBar
-                            queue={ this.props.queue }
-                            queueCursor={ this.props.queueCursor }
-                            shuffle={ this.props.shuffle }
-                            repeat={ this.props.repeat }
-                        />
-                       
-                    </div>
-                    {/*<div className="col-search-controls">
-                        <Input
-                            selectOnClick
-                            placeholder='search'
-                            className='form-control input-sm search'
-                            changeTimeout={ 250 }
-                            clearButton
-                            ref='search'
-                            onChange={ this.search }
-                        />
-                    </div>*/}
-                </div>
+                {
+                    this.props.showControl ? 
+                    <div className='main-header'>
+                        <div className='col-main-controls'>
+                            <PlayerControls
+                                playerStatus={ this.props.playerStatus }
+                            />
+                            <VolumeControl />
+                        </div>
+                        <div className='col-player-infos' style={{marginRight:'-3%'}}>
+                            <PlayingBar
+                                queue={ this.props.queue }
+                                queueCursor={ this.props.queueCursor }
+                                shuffle={ this.props.shuffle }
+                                repeat={ this.props.repeat }
+                            />
+                        
+                        </div>
+                        {/*<div className="col-search-controls">
+                            <Input
+                                selectOnClick
+                                placeholder='search'
+                                className='form-control input-sm search'
+                                changeTimeout={ 250 }
+                                clearButton
+                                ref='search'
+                                onChange={ this.search }
+                            />
+                        </div>*/}
+                    </div>: null
+                }
                 <KeyBinding onKey={ this.onKey } preventInputConflict />
             </header>
         );

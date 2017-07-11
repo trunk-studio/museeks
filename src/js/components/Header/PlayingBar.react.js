@@ -75,7 +75,9 @@ export default class PlayingBar extends Component {
         return (
             <div className={ nowPlayingTextClasses } >
                 <div className='now-playing-cover' style={{paddingLeft:'70px'}}>
-                    <Cover path={ trackPlaying.path } />
+                    {
+                        this.props.hideCover ? null : <Cover path={ trackPlaying.path } />
+                    }
                 </div>
                 <div className='now-playing-infos'>
                     <div className='now-playing-metas'>

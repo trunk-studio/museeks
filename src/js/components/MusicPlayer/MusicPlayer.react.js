@@ -114,7 +114,10 @@ export default class MusicPlayer extends Component {
                     <strong style={{ display: 'flex', textAlign: 'center', margin: '0 auto', justifyContent: 'center', color: 'white', fontSize: 14, marginTop: '25px' }}>Music Author  演唱者</strong>
                 </div>
 
-                <img style={{ display: 'block', margin: '0 auto', marginTop: '-3%', justifyContent: 'center', alignItems: 'center', alignmentAdjust: 'center', height: '40%' }} src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg" />
+                <img
+                  style={{ display: 'block', margin: '0 auto', marginTop: '-3%', justifyContent: 'center', alignItems: 'center', alignmentAdjust: 'center', height: '40%' }}
+                  src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg"
+                />
                 <br /><br />
 
                 <div style={{ width: '100%', height: '30%', background: '#282C34', verticalAlign: 'flex-end' ,Bottom:'0',paddingTop:'20px'}}>
@@ -123,6 +126,7 @@ export default class MusicPlayer extends Component {
                         queueCursor={0}
                         shuffle={this.props.shuffle}
                         repeat={this.props.repeat}
+                        hideCover
                     />
                     <PlayerControls style={{marginLeft:'',display: 'flex', alignItem: 'center'}}
                         playerStatus={this.props.playerStatus}

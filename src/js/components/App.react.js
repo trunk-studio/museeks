@@ -54,6 +54,7 @@ class Museeks extends Component {
                     queue={ store.queue }
                     queueCursor={ store.queueCursor }
                     useNativeFrame={ config.useNativeFrame }
+                    showControl={this.props.router.getCurrentLocation().pathname !== '/musicplayer'}
                 />
                 <div className='main-content container-fluid'>
                     <Row className='content'>
