@@ -12,6 +12,7 @@ import WindowControls from '../Header/WindowControls.react';
 import PlayerControls from '../Header/PlayerControls.react';
 import VolumeControl from './VolumeControl.react';
 import Util from '../../utils/utils'
+import { connect } from 'react-redux';
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,7 @@ import Util from '../../utils/utils'
 |--------------------------------------------------------------------------
 */
 
-export default class MusicPlayer extends Component {
+class MusicPlayer extends Component {
 
     static propTypes = {
         store: React.PropTypes.object,
@@ -37,93 +38,77 @@ export default class MusicPlayer extends Component {
     }
     constructor(props) {
         super(props);
+        this.state = {
+          title: '音樂名稱',
+          artist: ['演唱者'],
+          cover: 'http://placeholdit.imgix.net/~text?txtsize=100&txt=%E2%99%AA&w=256&h=256',
+        };
         // this.onKey = this.onKey.bind(this);
+    }
+
+    
+  async componentWillMount() {
+      const { queue, trackPlayingId } = this.props;
+      console.log("!componentWillMount!!!!!!!!!!!", queue, trackPlayingId);
+      if (queue.length > 0) {
+        let target = null;
+        if (trackPlayingId) {
+          target = queue.filter((data) => data._id === trackPlayingId)[0]
+        } else {
+          target = queue[0];
+        }
+        await this.showInfo(target);
+      }
+    }
+    
+
+    async componentWillUpdate(nextProps, nextState) {
+      const isNewSong = this.props.trackPlayingId !== nextProps.trackPlayingId && nextProps.trackPlayingId;
+      const isQueueUpdate = JSON.stringify(this.props.queue) !== JSON.stringify(nextProps.queue) && this.props.queue.length > 0;
+      if(isNewSong) {
+        const target = nextProps.queue.filter((data) => data._id === nextProps.trackPlayingId)[0];
+        await this.showInfo(target);
+      } else if (isQueueUpdate) {
+        const target = nextProps.queue[0];
+        await this.showInfo(target);
+      }
+    }
+
+    showInfo = async(target) => {
+        const title = target.title;
+        const artist = target.artist;
+        let cover = this.state.cover;
+        if (target.path.indexOf('http') !== 0) {
+          cover = await Util.fetchCover(target.path);
+          cover = `${encodeURI(cover).replace(/'/g, '\\\'').replace(/"/g, '\\"')}`;
+        }
+        this.setState({ title, artist, cover });
     }
 
     render() {
         const config = { ...app.config.getAll() };
-        console.log(this.props.queue);
-        console.log(this.props.queueCursor);
-        const MusicArr = [{
-            "album": "Unknown",
-            "albumartist": [],
-            "artist": [
-                "16個夏天插曲 艾怡良"
-            ],
-            "disk": {
-                "no": 0,
-                "of": 0
-            },
-            "duration": 232.9425,
-            "genre": [],
-            "loweredMetas": {
-                "artist": [
-                    "16個夏天插曲 艾怡良"
-                ],
-                "album": "unknown",
-                "albumartist": [],
-                "title": "如果從此",
-                "genre": []
-            },
-            "path": "C:\\Users\\USER\\Music\\new Music\\16個夏天插曲 艾怡良 - 如果從此.mp3",
-            "playCount": 0,
-            "title": "如果從此",
-            "track": {
-                "no": 0,
-                "of": 0
-            },
-            "year": "",
-            "_id": "32755d75"
-        }, {
-            "album": "Unknown",
-            "albumartist": [],
-            "artist": [
-                "楊丞琳 Rainie Yang"
-            ],
-            "disk": {
-                "no": 0,
-                "of": 0
-            },
-            "duration": 259.6135,
-            "genre": [],
-            "loweredMetas": {
-                "artist": [
-                    "楊丞琳 rainie yang"
-                ],
-                "album": "unknown",
-                "albumartist": [],
-                "title": "相愛的方法（植劇場-荼蘼 片尾曲）",
-                "genre": []
-            },
-            "path": "C:\\Users\\USER\\Music\\new Music\\楊丞琳 Rainie Yang - 相愛的方法（植劇場-荼蘼 片尾曲）.mp3",
-            "playCount": 0,
-            "title": "相愛的方法（植劇場-荼蘼 片尾曲）",
-            "track": {
-                "no": 0,
-                "of": 0
-            },
-            "year": "",
-            "_id": "7fd33adf"
-        }]
+        const { queue } = this.props;
+        const { title, artist, cover } = this.state;
         return (
 
             <div className='view' style={{ overflow: '', background: '#333842' }} >
 
                 <div style={{ width: '100%', height: '30%', background: '#282C34' }}>
-                    <strong style={{ display: 'flex', textAlign: 'center', margin: '0 auto', justifyContent: 'center', color: 'white', fontSize: 22, paddingTop: '3%' }}>Music Title  音樂標題</strong>
-                    <strong style={{ display: 'flex', textAlign: 'center', margin: '0 auto', justifyContent: 'center', color: 'white', fontSize: 14, marginTop: '25px' }}>Music Author  演唱者</strong>
+                    <strong style={{ display: 'flex', textAlign: 'center', margin: '0 auto', justifyContent: 'center', color: 'white', fontSize: 22, paddingTop: '3%' }}>{title}</strong>
+                    <strong style={{ display: 'flex', textAlign: 'center', margin: '0 auto', justifyContent: 'center', color: 'white', fontSize: 14, marginTop: '25px' }}>{artist}</strong>
                 </div>
 
                 <img
                   style={{ display: 'block', margin: '0 auto', marginTop: '-3%', justifyContent: 'center', alignItems: 'center', alignmentAdjust: 'center', height: '40%' }}
-                  src="http://www.designformusic.com/wp-content/uploads/2015/10/insurgency-digital-album-cover-design.jpg"
+                  src={cover}
                 />
                 <br /><br />
 
                 <div style={{ width: '100%', height: '30%', background: '#282C34', verticalAlign: 'flex-end' ,Bottom:'0',paddingTop:'20px'}}>
                     <PlayingBar
-                        queue={MusicArr}
-                        queueCursor={0}
+                        ref={(ref) => this.playingBar = ref}
+                        queue={queue}
+                        queueCursor={queue.length > 0 ? this.props.queueCursor : null}
                         shuffle={this.props.shuffle}
                         repeat={this.props.repeat}
                         hideCover
@@ -131,10 +116,19 @@ export default class MusicPlayer extends Component {
                     <PlayerControls style={{marginLeft:'',display: 'flex', alignItem: 'center'}}
                         playerStatus={this.props.playerStatus}
                     />
-                    <VolumeControl style={{position:'absolute',marginTop:'-30px'}}/>
+                    <VolumeControl style={{ position:'absolute',marginTop:'-30px' }}/>
                 </div>
             </div>
         );
     }
 }
 
+function mapStateToProps(state) {
+    return {
+      store: {...state},
+      queue: state.tracks.library.all || [],
+      queueCursor: state.queueCursor || 0,
+    };
+}
+
+export default connect(mapStateToProps)(MusicPlayer);

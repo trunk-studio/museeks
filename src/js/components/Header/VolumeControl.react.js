@@ -32,7 +32,7 @@ export default class VolumeControl extends Component {
         const audio = Player.getAudio();
 
         this.state = {
-            showVolume : true,
+            showVolume : false,
             volume     : unsmoothifyVolume(audio.volume),
             muted      : audio.muted,
         };
@@ -57,9 +57,9 @@ export default class VolumeControl extends Component {
                 className='player-control volume'
                 title='Volume'
                 onMouseEnter={ this.showVolume }
-                onMouseLeave={ this.showVolume }
+                onMouseLeave={ this.hideVolume }
                 onClick={ this.mute } 
-                style={{marginLeft:'200px',position:'absolute',marginTop:'',}}
+                //style={{marginLeft:'200px',position:'absolute',marginTop:'',}}
             >
                 <Icon name={ this.getVolumeIcon(unsmoothifyVolume(this.state.volume), this.state.muted) } />
                 <div className={ volumeClasses }>

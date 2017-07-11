@@ -56,8 +56,8 @@ export default class VolumeControl extends Component {
             <button type='button'
                 className='player-control volume'
                 title='Volume'
-                onMouseEnter={ this.showVolume }
-                onMouseLeave={ this.showVolume }
+                //onMouseEnter={ this.showVolume }
+                //onMouseLeave={ this.showVolume }
                 onClick={ this.mute } 
                 style={{marginLeft:'70%',position:'absolute',marginTop:'-30px',background:'#282C34',border:'none'}}
             >

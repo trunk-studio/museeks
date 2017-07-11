@@ -22,7 +22,7 @@ export default class PlayerControls extends PureComponent {
 
     render() {
         return (
-            <div className='player-controls'  style={{color:'white',marginLeft:'46.5%'}}>
+            <div className='player-controls'  style={{color:'white', justifyContent: 'center', marginLeft: '10px'}}>
                 <button type='button' className='player-control previous' title='Previous' onClick={ AppActions.player.previous }>
                     <Icon name='backward' />
                 </button>

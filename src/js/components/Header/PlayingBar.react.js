@@ -56,8 +56,6 @@ export default class PlayingBar extends Component {
         const queue = this.props.queue;
         const queueCursor = this.props.queueCursor;
         const trackPlaying = queue[queueCursor];
-
-//console.log(trackPlaying)
         let elapsedPercent;
 
         if(queueCursor === null) return null;

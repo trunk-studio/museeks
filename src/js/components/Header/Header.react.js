@@ -32,9 +32,6 @@ export default class Header extends Component {
     }
 
     render() {
-console.log( JSON.stringify(this.props.queue,null,2))
-console.log( JSON.stringify(this.props.queueCursor, null, 2))
-
         return (
             <header>
                 { this.getTopHeader() }
